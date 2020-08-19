@@ -74,6 +74,11 @@ export class HomePage {
           this.openModalEdit(event);
         }
       }, {
+        text: 'Eliminar',
+        handler: (blah) => {
+          this.firebaseService.deleteEvent(event.id);
+        }
+      },   {
         text: 'Cerrar',
         handler: () => {
           console.log('Confirm Ok');
