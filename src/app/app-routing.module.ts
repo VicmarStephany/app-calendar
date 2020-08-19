@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'modal',
     loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule)
   },
+  {
+    path: 'modal-edit',
+    loadChildren: () => import('./pages/modal-edit/modal-edit.module').then( m => m.ModalEditPageModule)
+  },
 ];
 
 @NgModule({
