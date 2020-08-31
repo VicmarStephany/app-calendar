@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { HomePage } from './presentation/views/home/home.page';
+import { ModalPage } from './presentation/components/modal/modal.page';
+import { ModalEditPage } from './presentation/components/modal-edit/modal-edit.page';
+import { homedir } from 'os';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+  
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    component: HomePage,
+    pathMatch: 'full',
+    children: [
+      {
+        path: 'modal',
+        component: ModalPage
+      },
+      {
+        path: 'modal-edit',
+        component: ModalEditPage
+      },
+    ]
   },
-  {
-    path: 'modal',
-    loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule)
-  },
-  {
-    path: 'modal-edit',
-    loadChildren: () => import('./pages/modal-edit/modal-edit.module').then( m => m.ModalEditPageModule)
-  },
+
 ];
 
 @NgModule({

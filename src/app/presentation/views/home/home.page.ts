@@ -1,11 +1,13 @@
 import { Component, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalPage } from '../pages/modal/modal.page';
+
 import { ModalController, AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
-import { FirebaseService } from '../services/firebase.service';
-import { ModalEditPage } from '../pages/modal-edit/modal-edit.page';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { ModalEditPage } from '../../components/modal-edit/modal-edit.page';
+import { ModalPage } from '../../components/modal/modal.page';
+
 
 @Component({
   selector: 'app-home',
