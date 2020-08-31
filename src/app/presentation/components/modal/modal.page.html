@@ -34,14 +34,4 @@
     <ion-label>Todo el día</ion-label>
     <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
   </ion-item>
-
-  <calendar
-    *ngIf="modalReady"
-    [calendarMode]="calendar.mode"
-    [currentDate]="calendar.currentDate"
-    (onTitleChanged)="onViewTitleChanged($event)"
-    (onTimeSelected)="onTimeSelected($event)"
-    lockSwipes="true"
-  >
-  </calendar>
 </ion-content>

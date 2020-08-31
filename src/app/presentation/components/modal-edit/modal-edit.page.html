@@ -1,0 +1,37 @@
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>{{ viewTitle }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="editEvent(eventEdit)">
+      <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+ 
+<ion-content *ngIf="evento">
+  <ion-item>
+    <ion-label position="stacked">Nombre</ion-label>
+    <ion-input tpye="text" [(ngModel)]="eventEdit.title" placeholder="evento.title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Descripción</ion-label>
+    <ion-input tpye="text" [(ngModel)]="eventEdit.description" placeholder="evento.description"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Inicio</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="eventEdit.startTime" [min]="minDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fin</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="eventEdit.endTime"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Todo el día</ion-label>
+    <ion-checkbox [(ngModel)]="eventEdit.allDay"></ion-checkbox>
+  </ion-item>
+</ion-content>

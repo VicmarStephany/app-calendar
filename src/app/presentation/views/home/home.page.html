@@ -1,52 +1,3 @@
-<!-- <ion-header color="primary">
-  <ion-toolbar color="primary">
-    <ion-title>
-      Calendario
-    </ion-title>
-  </ion-toolbar>
-
-  <ion-toolbar>
-
-    <ion-title> {{ viewTitle | titlecase }} </ion-title>
-
-  </ion-toolbar>
-
-  <ion-toolbar>
-    <ion-row>
-      <ion-col size="12" class="ion-text-center">
-        <ion-button [disabled]="isToday" (click)="today()">Hoy</ion-button>
-        <ion-button (click)="changeMode('month')">Mes</ion-button>
-        <ion-button (click)="changeMode('week')">Semana</ion-button>
-        <ion-button (click)="changeMode('day')">Día</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-
-</ion-header>
-
-
-    <button ion-button (click)="loadEvents()">Ver eventos</button>-->
-<!--
-<ion-content>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addNewEvent()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-
-  <calendar [eventSource]="eventSource" 
-          [calendarMode]="calendar.mode" 
-          [currentDate]="calendar.currentDate"
-          (onCurrentDateChanged)="onCurrentDateChanged($event)" 
-          (onEventSelected)="onEventSelected($event)" 
-          (onTitleChanged)="onViewTitleChanged($event)"
-          (onTimeSelected)="onTimeSelected($event)" step="30">
-  </calendar>
-
-</ion-content>
-(onRangeChanged)="reloadSource(startTime, endTime)"-->
 
 <ion-header>
   <ion-toolbar color="tertiary">
@@ -57,8 +8,7 @@
   </ion-toolbar>
 </ion-header>
  
-
-<ion-content>
+<ion-content *ngIf="eventSource.length >= 1 ">
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" (click)="openModal()">

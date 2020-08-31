@@ -1,6 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Event } from 'src/app/shared/event';
 import { FirebaseService } from 'src/app/services/firebase.service';
  
@@ -30,7 +29,7 @@ export class ModalPage implements AfterViewInit{
 
   modalReady = false;
  
-  constructor(private modalCtrl: ModalController, private db: AngularFirestore, public firebaseService: FirebaseService) { }
+  constructor(private modalCtrl: ModalController, public firebaseService: FirebaseService) { }
  
   ngAfterViewInit() {
     setTimeout(() => {
@@ -44,7 +43,7 @@ export class ModalPage implements AfterViewInit{
     this.modalCtrl.dismiss({event: this.event})
   }
  
- 
+
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
