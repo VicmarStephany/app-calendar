@@ -1,11 +1,14 @@
 import { Component, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalPage } from '../pages/modal/modal.page';
+
 import { ModalController, AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
-import { FirebaseService } from '../services/firebase.service';
-import { ModalEditPage } from '../pages/modal-edit/modal-edit.page';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { ModalEditPage } from '../../components/modal-edit/modal-edit.page';
+import { ModalPage } from '../../components/modal/modal.page';
+import { GetAllEventUseCase } from 'src/app/domain/usecases/get-all-event.usecases';
+
 
 @Component({
   selector: 'app-home',
@@ -25,8 +28,13 @@ export class HomePage {
 
   @ViewChild(CalendarComponent) calendarModal: CalendarComponent;
 
-  constructor(private alertCtrl: AlertController, private modalCtrl: ModalController,
-    @Inject(LOCALE_ID) private locale: string, private db: AngularFirestore, public firebaseService: FirebaseService
+  constructor(private alertCtrl: AlertController, 
+              private modalCtrl: ModalController,
+              @Inject(LOCALE_ID) 
+              private locale: string, 
+              private db: AngularFirestore, 
+              public firebaseService: FirebaseService, 
+              public getAllEvents: GetAllEventUseCase, 
   ) {
     this.db.collection(`events`).snapshotChanges().subscribe(colSnap => {
       this.eventSource = [];
@@ -42,6 +50,9 @@ export class HomePage {
   }
 
   ngOnInit() {
+    this.getAllEvents.execute(null).subscribe(data => {
+      console.log(data);
+    });
   }
 
   // Change current month/week/day
