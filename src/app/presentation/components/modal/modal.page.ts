@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Event } from 'src/app/shared/event';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { CreateEventUseCase } from 'src/app/domain/usecases/create-event.usecases';
+import { EventModel } from 'src/app/domain/models/event.model';
  
 @Component({
   selector: 'app-modal',
@@ -15,7 +15,7 @@ export class ModalPage implements AfterViewInit{
   };
   viewTitle: string;
   
-  event: Event = {
+  event: EventModel = {
     id:'',
     title: '',
     description: '',
@@ -29,7 +29,7 @@ export class ModalPage implements AfterViewInit{
 
   modalReady = false;
  
-  constructor(private modalCtrl: ModalController, public firebaseService: FirebaseService) { }
+  constructor(private modalCtrl: ModalController, public createEvent: CreateEventUseCase) { }
  
   ngAfterViewInit() {
     setTimeout(() => {
@@ -39,7 +39,9 @@ export class ModalPage implements AfterViewInit{
 
   addNewEvent(ev) {
     console.log(ev);
-    this.firebaseService.createEvent(ev);
+    this.createEvent.execute(ev).subscribe(data =>{
+      console.log(data);
+    })
     this.modalCtrl.dismiss({event: this.event})
   }
  

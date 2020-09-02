@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
-import { Event } from 'src/app/shared/event';
 import { ModalController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { UpdateEventUseCase } from 'src/app/domain/usecases/update-event-usecases';
+import { EventModel } from 'src/app/domain/models/event.model';
 
 @Component({
   selector: 'app-modal-edit',
@@ -11,7 +10,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class ModalEditPage implements AfterViewInit, OnInit {
 
-  @Input() evento: Event;
+  @Input() evento: EventModel;
 
   viewTitle: string;
   
@@ -20,7 +19,7 @@ export class ModalEditPage implements AfterViewInit, OnInit {
 
   modalReady = false;
 
-  eventEdit: Event = {
+  eventEdit: EventModel = {
     id:'',
     title: '',
     description: '',
@@ -29,13 +28,14 @@ export class ModalEditPage implements AfterViewInit, OnInit {
     allDay: false
   };
  
-  constructor(private modalCtrl: ModalController, public firebaseService: FirebaseService) {}
+  constructor(private modalCtrl: ModalController, public updateEvent: UpdateEventUseCase) {}
  
   ngOnInit(){
     console.log(this.eventEdit);
   }
 
   ionViewWillEnter(){
+    this.eventEdit.id = this.evento.id;
     this.eventEdit.title = this.evento.title;
     this.eventEdit.description = this.evento.description;
     this.eventEdit.startTime = this.evento.startTime;
@@ -49,9 +49,12 @@ export class ModalEditPage implements AfterViewInit, OnInit {
     }, 0);
   }
 
-  editEvent(ev: Event) {
+  editEvent(ev: EventModel) {
     console.log(ev);
-    this.firebaseService.editEvent(this.evento.id, ev);
+
+    this.updateEvent.execute(ev).subscribe(data =>{
+      console.log(data);
+    })
     this.modalCtrl.dismiss({event: this.evento})
   }
  
@@ -60,7 +63,7 @@ export class ModalEditPage implements AfterViewInit, OnInit {
   }
  
   onTimeSelected(ev) {    
-    this.eventEdit.startTime = new Date(ev.selectedTime);
+    this.eventEdit.startTime = ev.selectedTime;
   }
  
   close() {

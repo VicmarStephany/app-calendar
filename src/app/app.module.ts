@@ -1,6 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import es from '@angular/common/locales/es';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -19,12 +19,20 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
+import { HomePage } from './presentation/views/home/home.page';
+import { ModalPage } from './presentation/components/modal/modal.page';
+import { ModalEditPage } from './presentation/components/modal-edit/modal-edit.page';
+import { DataModule } from './data/data.module';
 
  registerLocaleData(es);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePage,    
+    ModalPage,
+    ModalEditPage
   ],
   entryComponents: [],
   imports: [
@@ -35,7 +43,12 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    CommonModule,
+    FormsModule,
+    NgCalendarModule,
+    DataModule
+
   ],
   providers: [
     StatusBar,
