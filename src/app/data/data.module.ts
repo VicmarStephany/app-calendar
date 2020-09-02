@@ -8,8 +8,8 @@ import { MockModule } from './repository/mock/mock.module';
   declarations: [],
   imports: [
     CommonModule,
-    //DatabaseModule, 
-    MockModule
+    DatabaseModule, 
+    //MockModule
   ]
 })
 export class DataModule { }

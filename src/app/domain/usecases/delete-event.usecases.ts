@@ -8,11 +8,11 @@ import { EventRepository } from '../repository/event.repository';
     providedIn: 'root'
 })
 
-export class DeleteEventUseCase implements UseCase<string,EventModel>{
+export class DeleteEventUseCase implements UseCase<EventModel,EventModel>{
      
     constructor( private eventRepository: EventRepository ){}
 
-    execute(param: string): Observable<EventModel> {
-        return this.eventRepository.delete(param);
+    execute(event: EventModel): Observable<EventModel> {
+        return this.eventRepository.delete(event);
     }
 }

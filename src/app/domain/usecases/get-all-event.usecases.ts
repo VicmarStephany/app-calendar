@@ -8,11 +8,11 @@ import { EventRepository } from '../repository/event.repository';
     providedIn: 'root'
 })
 
-export class GetAllEventUseCase implements UseCase<void,EventModel[]>{
+export class GetAllEventUseCase implements UseCase<void,EventModel>{
      
     constructor( private eventRepository: EventRepository ){}
 
-    execute(param: void): Observable<EventModel[]> {
+    execute(param: void): Observable<EventModel> {
         return this.eventRepository.getAll();
     }
 }

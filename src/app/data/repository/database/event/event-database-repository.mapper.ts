@@ -1,6 +1,7 @@
 import { EventEntity } from './event-database-entity';
 import { Mapper } from 'src/app/domain/base/mapper';
 import { EventModel } from 'src/app/domain/models/event.model';
+import { isString } from 'util';
 
 
 export class EventDataBaseRespositoryMapper implements Mapper<EventEntity, EventModel>{
@@ -10,8 +11,8 @@ export class EventDataBaseRespositoryMapper implements Mapper<EventEntity, Event
             id: param.id,
             title: param.title,
             description: param.description,
-            startTime: param.startTime,
-            endTime: param.endTime,
+            startTime: new Date(param.startTime),
+            endTime: new Date(param.startTime),
             allDay: param.allDay,
         };
     }
@@ -21,8 +22,8 @@ export class EventDataBaseRespositoryMapper implements Mapper<EventEntity, Event
             id: param.id,
             title: param.title,
             description: param.description,
-            startTime: param.startTime,
-            endTime: param.endTime,
+            startTime: new Date(param.startTime).toISOString(),
+            endTime:new Date(param.endTime).toISOString(),
             allDay: param.allDay,
         };
     }

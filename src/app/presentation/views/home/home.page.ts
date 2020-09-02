@@ -1,13 +1,12 @@
 import { Component, ViewChild, Inject, LOCALE_ID } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-
 import { ModalController, AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
-import { FirebaseService } from 'src/app/services/firebase.service';
 import { ModalEditPage } from '../../components/modal-edit/modal-edit.page';
 import { ModalPage } from '../../components/modal/modal.page';
 import { GetAllEventUseCase } from 'src/app/domain/usecases/get-all-event.usecases';
+import { DeleteEventUseCase } from 'src/app/domain/usecases/delete-event.usecases';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,27 +31,18 @@ export class HomePage {
               private modalCtrl: ModalController,
               @Inject(LOCALE_ID) 
               private locale: string, 
-              private db: AngularFirestore, 
-              public firebaseService: FirebaseService, 
-              public getAllEvents: GetAllEventUseCase, 
+              public getAllEvents: GetAllEventUseCase,
+              public deleteEvent: DeleteEventUseCase,
+              public router: Router 
   ) {
-    this.db.collection(`events`).snapshotChanges().subscribe(colSnap => {
-      this.eventSource = [];
-      colSnap.forEach(snap => {
-        let event: any = snap.payload.doc.data();
-        event.id = snap.payload.doc.id;
-        event.startTime = event.startTime.toDate();
-        event.endTime = event.endTime.toDate();
-        console.log(event);
-        this.eventSource.push(event);
-      });
+    this.getAllEvents.execute(null).subscribe(data => {
+        this.eventSource.push(data);
+      console.log(data);
     });
   }
 
   ngOnInit() {
-    this.getAllEvents.execute(null).subscribe(data => {
-      console.log(data);
-    });
+
   }
 
   // Change current month/week/day
@@ -71,6 +61,7 @@ export class HomePage {
 
   // Calendar event was clicked
   async onEventSelected(event) {
+    console.log(event);
 
     let start = formatDate(event.startTime, 'medium', this.locale);
     let end = formatDate(event.endTime, 'medium', this.locale);
@@ -87,12 +78,16 @@ export class HomePage {
       }, {
         text: 'Eliminar',
         handler: (blah) => {
-          this.firebaseService.deleteEvent(event.id);
+        this.deleteEvent.execute(event).subscribe(data =>{
+            console.log(data);
+          })
+          this.router.navigate(['/home']);
+  
         }
       },   {
         text: 'Cerrar',
         handler: () => {
-          console.log('Confirm Ok');
+          console.log('Ok');
         }
       },],
     });

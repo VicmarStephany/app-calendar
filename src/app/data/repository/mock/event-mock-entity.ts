@@ -6,3 +6,4 @@ export class EventMockEntity {
     endTime: string;
     allDay: boolean;
 }
+

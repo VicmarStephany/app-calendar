@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Event } from '../shared/event';
 import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/database';
+import { EventModel } from '../domain/models/event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,25 +26,8 @@ export class FirebaseService {
       });
     });
   }
-/*
-  getEventById(events: Array<Event>, id) {
-    this.db.collection(`events`).snapshotChanges().subscribe(colSnap => {
-      this.eventSource = [];
-      colSnap.forEach(snap => {
-        let event: any = snap.payload.doc.data();
-        event.id = snap.payload.doc.id;
-        event.startTime = event.startTime.toDate();
-        event.endTime = event.endTime.toDate();
-        console.log(event);
-        this.eventSource.push(event);
-      });
-      return this.eventSource.find(event => event.id === id);
-    });
-    return events.find(event => event.id === id);
-  }
-*/
 
-  createEvent(ev: Event) {
+  createEvent(ev: EventModel) {
     let event = {
       title: ev.title,
       description: ev.description,
@@ -59,7 +42,7 @@ export class FirebaseService {
     return this.db.collection(`events`).doc(id).delete();
   }
 
-  editEvent(id: string, ev: Event) {
+  editEvent(id: string, ev: EventModel) {
 
     return this.db.collection(`events`).doc(id).update({
       title: ev.title,

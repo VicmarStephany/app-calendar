@@ -23,13 +23,16 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './presentation/views/home/home.page';
 import { ModalPage } from './presentation/components/modal/modal.page';
 import { ModalEditPage } from './presentation/components/modal-edit/modal-edit.page';
+import { DataModule } from './data/data.module';
 
  registerLocaleData(es);
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePage,
+    HomePage,    
+    ModalPage,
+    ModalEditPage
   ],
   entryComponents: [],
   imports: [
@@ -44,8 +47,8 @@ import { ModalEditPage } from './presentation/components/modal-edit/modal-edit.p
     CommonModule,
     FormsModule,
     NgCalendarModule,
-    ModalPage,
-    ModalEditPage
+    DataModule
+
   ],
   providers: [
     StatusBar,

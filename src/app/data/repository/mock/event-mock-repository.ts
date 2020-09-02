@@ -20,8 +20,8 @@ export class EventMockRepository extends EventRepository {
         this.listEvent = events;
     }
 
-    getAll(): Observable<EventModel[]>{
-        return from([this.listEvent.map(item => this.mapper.mapFrom(item))]);
+    getAll(): Observable<EventModel>{
+        return from(this.listEvent.map(item => this.mapper.mapFrom(item)));
     }
 
     create(param: EventModel): Observable<EventModel> {
@@ -38,10 +38,9 @@ export class EventMockRepository extends EventRepository {
             return from([this.mapper.mapFrom(this.mapper.mapTo(event))]);
     }
 
-    delete(id: string): Observable<EventModel> {
-        const event = this.listEvent.find(item => item.id === id)
-        this.listEvent = this.listEvent.filter(item => item.id != id)
+    delete(event:EventModel): Observable<EventModel> {
+        this.listEvent = this.listEvent.filter(item => item.id != event.id)
         
-        return from([this.mapper.mapFrom(event)])
+        return from([this.mapper.mapFrom(this.mapper.mapTo(event))])
     }
 }

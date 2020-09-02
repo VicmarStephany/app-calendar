@@ -20,8 +20,8 @@ export class EventRepositoryMockMapper extends Mapper<EventMockEntity, EventMode
             id: param.id,
             title: param.title,
             description: param.description,
-            startTime: param.startTime.toDateString(),
-            endTime: param.endTime.toDateString(),
+            startTime: new Date(param.startTime).toISOString(),
+            endTime:new Date(param.endTime).toISOString(),
             allDay: param.allDay,
         }
     }
